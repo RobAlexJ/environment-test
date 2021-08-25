@@ -8,10 +8,24 @@ on:
         required: true
 
 jobs:
+
+  init-job:
+    runs-on: ubuntu-20.04
+
+    outputs:
+      environment: uat
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
   check-environment:
     name: Check environment
-    environment: ${{ github.event.inputs.environment }}
+    # environment: ${{ github.event.inputs.environment }}
+    environment: ${{ needs.init-job.outputs.environment }}
     runs-on: ubuntu-20.04
+    needs:
+      - init-job
 
     steps:
       - name: Checkout
