@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     outputs:
-      environment: uat
+      environment: ${{ github.event.inputs.environment }}
 
     steps:
       - name: Checkout
@@ -21,8 +21,8 @@ jobs:
 
   check-environment:
     name: Check environment
-    environment: ${{ github.event.inputs.environment }}
-    # environment: ${{ needs.init-job.outputs.environment }}
+    # environment: ${{ github.event.inputs.environment }}
+    environment: ${{ needs.init-job.outputs.environment }}
     runs-on: ubuntu-20.04
     needs:
       - init-job
